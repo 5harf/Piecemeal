@@ -1,7 +1,7 @@
 var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var cors = require('express-cors')
+var cors = require('cors')
 
 
 module.exports = function (app, express, io) {
@@ -16,6 +16,8 @@ module.exports = function (app, express, io) {
   //   ]
   // }))
 
+  app.use(cors())
+
   app.use(bodyParser.json());
 
 
@@ -24,7 +26,7 @@ module.exports = function (app, express, io) {
   var eventRouter = express.Router();
 
   app.use('/', express.static(path.join(__dirname, '../../client/')));
-  
+
   app.use(morgan('dev'));
 
   app.use('/auth', oauthRouter);
